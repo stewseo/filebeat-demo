@@ -1,0 +1,10 @@
+# Module: logstash
+# Docs: https://www.elastic.co/guide/en/beats/filebeat/main/filebeat-module-logstash.html
+
+- module: logstash
+  log:
+    enabled: true
+    var.paths:
+  slowlog:
+    enabled: false
+    var.paths:

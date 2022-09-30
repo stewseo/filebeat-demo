@@ -1,0 +1,41 @@
+
+filebeat.inputs:
+  - type: filestream
+    id: california-restaurants-id
+    enabled: true
+    paths:
+      - C:\Users\seost\restaurants\*
+    parsers:
+      - ndjson:
+          keys_under_root: true
+          overwrite_keys: true
+          add_error_key: true
+          expand_keys: true
+    reload.enabled: false
+# ============================== Filebeat modules ==============================
+
+
+# Glob pattern for configuration loading
+filebeat.config.modules:
+  path: ${path.config}/modules.d/*.yml
+
+setup.template.settings:
+  index.number_of_shards: 1
+  index.codec: best_compression
+
+setup.kibana:
+
+cloud.id: ${ES_CLOUD_ID}
+cloud.auth: ${ES_CLOUD_AUTH}
+
+output.elasticsearch:
+# Array of hosts to connect to.
+
+
+processors:
+  - add_host_metadata:
+      when.not.contains.tags: forwarded
+  - add_host_metadata: ~
+  - add_cloud_metadata: ~
+  - add_kubernetes_metadata: ~
+
